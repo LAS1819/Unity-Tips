@@ -15,6 +15,7 @@ The following is a breakdown of each of the SOLID principles.
 - **Definition**: a class should have only one reason to change, meaning it should have only one responsibility.
 - **Objective**: to simplify design and facilitate maintenance by ensuring that each class focuses on a single task.
 - **C# Example**:
+
     ```csharp
     // Incorrect: one class with multiple responsibilites
     public class User
@@ -34,14 +35,16 @@ The following is a breakdown of each of the SOLID principles.
         public void SendEmail() { /* Logic for sending an email */ }
     }
     ```
+
 - **Benefits**:
-    - **Easier Maintenance**: changes to one resposibility do not affect other functionalities.
-    - **Improved Readability**: classes are smaller and more focused.
-    - **Reusability** single-responsibility classes are easier to reuse in other parts of the application.
+
+  - **Easier Maintenance**: changes to one resposibility do not affect other functionalities.
+  - **Improved Readability**: classes are smaller and more focused.
+  - **Reusability** single-responsibility classes are easier to reuse in other parts of the application.
 
 - **Common Pitfalls**
-    - **Over-Splitting**: creating too many small classes can lerad to unnecessary complexity.
-    - **Misidentifying Responsibilites**: ensure that each responsibility os truly distinct and not artificially separated.
+  - **Over-Splitting**: creating too many small classes can lerad to unnecessary complexity.
+  - **Misidentifying Responsibilites**: ensure that each responsibility os truly distinct and not artificially separated.
 
 #### **Additional Notes**
 
@@ -55,11 +58,12 @@ The following is a breakdown of each of the SOLID principles.
 - **Definition**:
 - **Objective**:
 - **C# Example**:
+
     ```csharp
     ```
+
 ---
 
 ## Additional Resources
 
 - [Link to Official Documentation](#)
-```
