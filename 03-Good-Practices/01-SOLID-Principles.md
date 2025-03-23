@@ -90,7 +90,7 @@ Imagine your're developing a game with different types of enemies. Instead of mo
         {
             public void Attack()
             {
-            Debug.Log("Zombie attacks with a bite!");
+                Debug.Log("Zombie attacks with a bite!");
             }
         }
 
@@ -98,7 +98,7 @@ Imagine your're developing a game with different types of enemies. Instead of mo
         {
             public void Attack()
             {
-            Debug.Log("Skeleton attacks with a sword!");
+                Debug.Log("Skeleton attacks with a sword!");
             }
         }
 
@@ -106,7 +106,7 @@ Imagine your're developing a game with different types of enemies. Instead of mo
         {
             public void Attack()
             {
-            Debug.Log("Dragon attacks with fire breath!");
+                Debug.Log("Dragon attacks with fire breath!");
             }
         }
         ```
@@ -120,14 +120,14 @@ Imagine your're developing a game with different types of enemies. Instead of mo
 
             void Start()
             {
-            _enemies.Add(new Zombie());
-            _enemies.Add(new Skeleton());
-            _enemies.Add(new Dragon());
+                _enemies.Add(new Zombie());
+                _enemies.Add(new Skeleton());
+                _enemies.Add(new Dragon());
 
-            foreach (var enemy in _enemies)
-            {
-                enemy.Attack();
-            }
+                foreach (var enemy in _enemies)
+                {
+                    enemy.Attack();
+                }
             }      
         }
         ```
