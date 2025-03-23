@@ -74,64 +74,63 @@ The following is a breakdown of each of the SOLID principles.
 Imagine your're developing a game with different types of enemies. Instead of modifiying the existing enemy logic every time you add a new enemy type, you can use OCP to make the system extensible.
 
 - **Unity Implementation**
-
   1. **Define an Interface for Enemies**:
 
-  ```csharp
-  public interface IEnemy
-  {
-    void Attack();
-  }
-  ```
+        ```csharp
+        public interface IEnemy
+        {
+            void Attack();
+        }
+        ```
 
   1. **Create Specific Enemy Types**:
 
-  ```csharp
-  public class Zombie : MonoBehaviour, IEnemy
-  {
-    public void Attack()
-    {
-      Debug.Log("Zombie attacks with a bite!");
-    }
-  }
+        ```csharp
+        public class Zombie : MonoBehaviour, IEnemy
+        {
+            public void Attack()
+            {
+            Debug.Log("Zombie attacks with a bite!");
+            }
+        }
 
-  public class Skeleton() : MonoBehaviour, IEnemy
-  {
-    public void Attack()
-    {
-      Debug.Log("Skeleton attacks with a sword!");
-    }
-  }
+        public class Skeleton() : MonoBehaviour, IEnemy
+        {
+            public void Attack()
+            {
+            Debug.Log("Skeleton attacks with a sword!");
+            }
+        }
 
-  public class Dragon() : MonoBehaviour, IEnemy
-  {
-    public void Attack()
-    {
-      Debug.Log("Dragon attacks with fire breath!");
-    }
-  }
-  ```
+        public class Dragon() : MonoBehaviour, IEnemy
+        {
+            public void Attack()
+            {
+            Debug.Log("Dragon attacks with fire breath!");
+            }
+        }
+        ```
 
   1. **Use the Enemies in a Game Manager**:
 
-  ```csharp
-  public class GameManager : MonoBehaviour
-  {
-    private List<IEnemy> _enemies = new List<IEnemy>();
+        ```csharp
+        public class GameManager : MonoBehaviour
+        {
+            private List<IEnemy> _enemies = new List<IEnemy>();
 
-    void Start()
-    {
-      _enemies.Add(new Zombie());
-      _enemies.Add(new Skeleton());
-      _enemies.Add(new Dragon());
+            void Start()
+            {
+            _enemies.Add(new Zombie());
+            _enemies.Add(new Skeleton());
+            _enemies.Add(new Dragon());
 
-      foreach (var enemy in _enemies)
-      {
-        enemy.Attack();
-      }
-    }      
-  }
-  ```
+            foreach (var enemy in _enemies)
+            {
+                enemy.Attack();
+            }
+            }      
+        }
+        ```
 
 - **Benefits of OCP in Unity**
   - **Extensibiltiy**: you can add new enemy types (e.g., Dragon, Goblin) without modifiying the GameManager or existing enemy classes.
@@ -164,81 +163,81 @@ Imagine you're developing a game with differents types of charactes. Each charac
 - **Unity Implementation**
   1. Define a Base Class for Characters:
   
-  ```csharp
-  public abstract class Character : MonoBehaviour
-  {
-      public abstract void Move();
-      public abstract void Attack();
-  }
-  ```
+        ```csharp
+        public abstract class Character : MonoBehaviour
+        {
+            public abstract void Move();
+            public abstract void Attack();
+        }
+        ```
 
   1. Create Derived Classes:
 
-  ```csharp
-  public class Knight : Character
-  {
-      public override void Move()
-      {
-        Debug.Log("Knight moves forward");
-      }
+        ```csharp
+        public class Knight : Character
+        {
+            public override void Move()
+            {
+                Debug.Log("Knight moves forward");
+            }
 
-      public override void Attack()
-      {
-        Debug.Log("Knight swings a sword.");
-      }
-  }
+            public override void Attack()
+            {
+                Debug.Log("Knight swings a sword.");
+            }
+        }
 
-  public class Archer : Character
-  {
-      public override void Move()
-      {
-        Debug.Log("Archer moves stealthily");
-      }
+        public class Archer : Character
+        {
+            public override void Move()
+            {
+                Debug.Log("Archer moves stealthily");
+            }
 
-      public override void Attack()
-      {
-        Debug.Log("Archer shoots an arrow.");
-      }
-  }
-  ```
+            public override void Attack()
+            {
+                Debug.Log("Archer shoots an arrow.");
+            }
+        }
+        ```
 
   1. Use Characters in a Game Manager:
 
-  ```csharp
-  public class GameManager : MonoBehaviour
-  {
-    private List<Character> _characters = new List<Characters>();
-
-    void Start()
-    {
-        _characters.Add(new Knight());
-        _characters.Add(new Archer());
-
-        foreach (var character in _characters)
+        ```csharp
+        public class GameManager : MonoBehaviour
         {
-            character.Move();
-            character.Attack();
+            private List<Character> _characters = new List<Characters>();
+
+            void Start()
+            {
+                _characters.Add(new Knight());
+                _characters.Add(new Archer());
+
+                foreach (var character in _characters)
+                {
+                    character.Move();
+                    character.Attack();
+                }
+            }
         }
-    }
-  }
-  ```
+        ```
 
   1. Add a New Character Without Breaking the System:
 
-  ```csharp
-  public class Mage : Character
-  {
-    public override void Move()
-    {
-        Debug.Log("Mage teleports.");
-    }
+        ```csharp
+        public class Mage : Character
+        {
+            public override void Move()
+            {
+                Debug.Log("Mage teleports.");
+            }
 
-    public override void Attack()
-    {
-        Debug.Log("Mage casts a spell.");
-    }
-  }
-  ```
+            public override void Attack()
+            {
+                Debug.Log("Mage casts a spell.");
+            }
+        }
+        ```
 
 - **Benefits of LSP in Unity**
   - **Interchangeability**: you can replace any character with another (e.g., `Knight`, `Archer`, `Mage`) without breaking the game logic.
