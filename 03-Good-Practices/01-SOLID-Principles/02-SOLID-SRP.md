@@ -26,11 +26,15 @@ A class should have **only one reason to change**, meanint it should encapsulate
 | ♻️ **Reusability** | `HealthSystem` can be reused across enemies, players, NPCs |
 | 🧪 **Simpler Testing** | Isolated components are easier to unit test |
 
+---
+
 ## **Common Pitfalls**
 
 - **Over-Splitting**: creating too many small classes (micro-classes) can lead to unnecessary complexity.
 - **Misidentifying Responsibilites**: ensure that each responsibility os truly distinct and not artificially separated.
 - **False SRP**: splitting code physically but keeping logical coupling (e.g., `PlayerMovement` requiring exact variable names from `PlayerInput`).
+
+---
 
 ## **Additional Notes**
 

@@ -1,86 +1,212 @@
-### 2. Open/Closed Principle (OCP)
+# SOLID Principles - Open/Closed Principle (OCP)
 
-- **Definition**: software entities (classes, modules, funcions, etc.) should be open for extension but closed for modification. This means that you shuld be able to add new functionality without changing existing code.
-- **Objective**: to make the system more maintanable and scalable by allowing new features to be added with a minimal risk of introducing bugs in existing code.
-- **Benefits**
-  - **Maintainability**: existing code doesn't beed to be modified, reducing the risk of introducing bugs.
-  - **Scalability**: new functionality can be added easily by creating new classes.
-  - **Reusability**: the existing codebase remains reusable and stable.
-  - **Testability**: since existing code isn't modified, existing tests don't need to be updates.
-- **Common Pitfalls**
-  - **Over-Engineering**: creating too many abstractions can make the code harder to understand.
-  - **Misidentifying Extension Points**: not all parts of the system need to be open for extension. Focus on areas that are likey to change.
-  - **Tight Coupling**: if new extensions require changes to existing code, the principle is violated.
-- **Additional Notes**
-  - **Real-World Analogy**: think of OCP like a smartphone. You can extend its funcionality by installing new apps (extensions) without modifying the phone's operating system (closed for modification).
-  - **When to apply**: use OCP when you anticipate that certain parts of your system will need to change or grow over time, sucha as adding new shapes, enemies, or behaviours in a game.
+> **📍 Location**: `Good-Practices/01-SOLID-Principles/03-SOLID-OCP.md`
+> **🔗 See Also**: [SOLID Introduction](01-SOLID-Introduction.md)
 
-#### Unity Example: OCP in Action
+## **Definition**
 
-Imagine your're developing a game with different types of enemies. Instead of modifiying the existing enemy logic every time you add a new enemy type, you can use OCP to make the system extensible.
+Software entities should be:
 
-- **Unity Implementation**
-  1. **Define an Interface for Enemies**:
-
-        ```csharp
-        public interface IEnemy
-        {
-            void Attack();
-        }
-        ```
-
-  1. **Create Specific Enemy Types**:
-
-        ```csharp
-        public class Zombie : MonoBehaviour, IEnemy
-        {
-            public void Attack()
-            {
-                Debug.Log("Zombie attacks with a bite!");
-            }
-        }
-
-        public class Skeleton() : MonoBehaviour, IEnemy
-        {
-            public void Attack()
-            {
-                Debug.Log("Skeleton attacks with a sword!");
-            }
-        }
-
-        public class Dragon() : MonoBehaviour, IEnemy
-        {
-            public void Attack()
-            {
-                Debug.Log("Dragon attacks with fire breath!");
-            }
-        }
-        ```
-
-  1. **Use the Enemies in a Game Manager**:
-
-        ```csharp
-        public class GameManager : MonoBehaviour
-        {
-            private List<IEnemy> _enemies = new List<IEnemy>();
-
-            void Start()
-            {
-                _enemies.Add(new Zombie());
-                _enemies.Add(new Skeleton());
-                _enemies.Add(new Dragon());
-
-                foreach (var enemy in _enemies)
-                {
-                    enemy.Attack();
-                }
-            }      
-        }
-        ```
-
-- **Benefits of OCP in Unity**
-  - **Extensibiltiy**: you can add new enemy types (e.g., Dragon, Goblin) without modifiying the GameManager or existing enemy classes.
-  - **Maintainability**: existing enemy logic remains untouched, reducing the risk of bugs.
-  - **Scalability**: the system can grow easily as new requirements arise.
+- **Open for extension**: new behavior can be added via new code.
+- **Closed for modification**: existing code remains unchanged.
 
 ---
+
+## **Objective**
+
+To make the system more maintanable and scalable by allowing new features to be added with a minimal risk of introducing bugs in existing code.
+
+- **Future-proof** your code against new requeriments.
+- **Minimize regression risks** when adding features.
+- Enable **modding support** through extensible systems.
+
+---
+
+## **Benefits**
+
+| Benefit | Impact in Unity Projects |
+| ------- | ------------------------ |
+| 🛡️ **Stability** | Core systems remain untouched during expansions |
+| 🧩 **Modularity** | New enemy types, weapons, or abilities plug in seamlessly |
+| ♻️ **Efficiency** | Less time spent refactoring existing code |
+
+---
+
+## **Common Pitfalls**
+
+- **Over-Engineering**: creating too many abstractions can make the code harder to understand.
+- **Misidentifying Extension Points**: not all parts of the system need to be open for extension. Focus on areas that are likey to change.
+- **Tight Coupling**: if new extensions require changes to existing code, the principle is violated.
+
+---
+
+## **Additional Notes**
+
+### 🧠 Mental Model
+
+Think of OCP like Unity's Particle System:
+
+- **Closed**: the core particle engine doesn't change.
+- **Open**: you can create infinite new effects by tweaking parameters and modules.
+
+### ⚡ When to Apply
+
+1. When you anticipate **frequent additions** (enemies, skills, UI elements).
+1. For **core systems** that multiple teams members work on.
+1. When using **ScriptableObjects** for data-driven design.
+
+---
+
+## Unity Example: OCP in Action
+
+### 🎮 **Scenario**: Weapon System
+
+#### ❌ Before OCP
+
+```csharp
+public class Weapon : MonoBehaviour
+{
+    public enum WeaponType { Sword, Gun }
+    public WeaponType type;
+    
+    void Attack()
+    {
+        switch(type)
+        {
+            case WeaponType.Sword: SwingSword(); break;
+            case WeaponType.Gun: FireGun(); break;
+        }
+    }
+    // Must edit this class to add new weapons
+}
+```
+
+#### ✅ After OCP
+
+1. **Define the Abstraction**
+
+    ```csharp
+    public interface IWeapon
+    {
+        void Attack();
+    }
+    ```
+
+1. **Implement Concrete Weapons**
+
+    ```csharp
+    // Sword.cs
+    public class Sword : MonoBehaviour, IWeapon
+    {
+        public void Attack()
+        {
+            Debug.Log("Sword slash!");
+            PlaySwingAnimation();
+        }
+    }
+
+    // Gun.cs
+    public class Gun : MonoBehaviour, IWeapon
+    {
+        public void Attack()
+        {
+            Debug.Log("Gun shot!");
+            FireBullet();
+        }
+    }
+
+    // New weapon type (added without changing existing code)
+    public class Grenade : MonoBehaviour, IWeapon
+    {
+        public void Attack()
+        {
+            Debug.Log("Grenade throw!");
+            SpawnExplosion();
+        }
+    }
+    ```
+
+1. **Usage**
+
+    ```csharp
+    public class PlayerCombat : MonoBehaviour
+    {
+        private IWeapon _currentWeapon;
+
+        public void EquipWeapon(IWeapon weapon)
+        {
+            _currentWeapon = weapon;
+        }
+
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+                _currentWeapon?.Attack();
+        }
+    }
+    ```
+
+#### 🛠️ Implementation Notes
+
+1. **ScriptableObject Integration**:
+
+    ```csharp
+    // WeaponSO.cs
+    public abstract class WeaponSO : ScriptableObject
+    {
+        public abstract void Attack();
+    }
+
+    // Usage: create assets for each weapon type
+    ```
+
+1. **UnityEvent Alternative**:
+
+    ```csharp
+    public class WeaponController : MonoBehaviour
+    {
+        public UnityEvent onAttack;
+        void Attack() ==> onAttack.Invoke();
+    }
+    ```
+
+---
+
+## **Benefits of OCP in Unity**
+
+1. **Content Pipeline**: designers can add new weapons/enemies without programmer intervention.
+1. **Assets Reuse**: existing VFX/SFX systems work with new weapon types automatically.
+1. **Safer Updates**: mods or DLCs can extend systems without touching core code.
+
+---
+
+## **Pro Tips**
+
+1. **Use ScriptableObjects** for data-driven extensibility:
+
+    ```csharp
+    // Create new weapons as assets
+    [CreateAssetMenu]
+    public class MagicStaffSO : WeaponSO
+    {
+        public override void Attack()
+        {
+            // Staff-specific logic
+        }
+    }
+    ```
+
+1. **Editor Tools**: automate creation of new type templates with [MenuItem] attributes.
+1. **Component-Based Approach**:
+
+    ```yaml
+    Player/
+    ├── WeaponSlot (holds IWeapon)
+    └── Weapon_Base (implements IWeapon)
+        ├── Weapon_Sword
+        └── Weapon_Gun
+    ```
+
+---
+
+[Next >>: Liskov Substitution Principle (LSP)](04-SOLID-LSP.md) // [<< Back: Single Responsibility Principle (SRP)](02-SOLID-SRP.md)
