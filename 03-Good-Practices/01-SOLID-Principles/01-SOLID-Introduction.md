@@ -19,12 +19,12 @@ The **SOLID principles** are five object-oriented design guidelines that help de
 ## Key Concepts
 
 | Principle       | Unity Analogy                  | Key Benefit for Developers |
-|----------------|--------------------------------|---------------------------|
-| **🧩 SRP**        | One script = one responsibility (e.g., `PlayerMovement` ≠ `PlayerHealth`) | Easier debugging |
-| **🔓 OCP**        | New enemy types without modifying `EnemyManager` | Safe modding support |
-| **🔄 LSP**        | Any `Weapon` subclass works in `AttackSystem` | Polymorphism done right |
-| **✂️ ISP**        | `IMovable` for movement vs `IDamageable` for combat | No empty methods |
-| **📦 DIP**        | `IInventoryService` instead of direct `Database` references | Easy testing |
+| --------------- | ------------------------------ | -------------------------- |
+| **🧩 SRP** | One script = one responsibility (e.g., `PlayerMovement` ≠ `PlayerHealth`) | Easier debugging |
+| **🔓 OCP** | New enemy types without modifying `EnemyManager` | Safe modding support |
+| **🔄 LSP** | Any `Weapon` subclass works in `AttackSystem` | Polymorphism done right |
+| **✂️ ISP** | `IMovable` for movement vs `IDamageable` for combat | No empty methods |
+| **📦 DIP** | `IInventoryService` instead of direct `Database` references | Easy testing |
 
 ---
 
