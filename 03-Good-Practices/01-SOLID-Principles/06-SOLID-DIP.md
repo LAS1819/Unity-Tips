@@ -93,60 +93,60 @@ public class GameProgress
 
 1. **Define Abstraction**:
 
-```csharp
-public interface IDataSaver
-{
-    void Save(string data);
-    string Load();
-}
-```
+    ```csharp
+    public interface IDataSaver
+    {
+        void Save(string data);
+        string Load();
+    }
+    ```
 
 1. **Implementations**:
 
-```csharp
-// File System Implementation
-public class FileSaver : MonoBehaviour, IDataSaver
-{
-    public void Save(string data)
+    ```csharp
+    // File System Implementation
+    public class FileSaver : MonoBehaviour, IDataSaver
     {
-        File.WriteAllText("game.dat", data);
+        public void Save(string data)
+        {
+            File.WriteAllText("game.dat", data);
+        }
     }
-}
 
-// Cloud Save Implementation
-public class CloudSaver : MonoBehaviour, IDataSaver
-{
-    public void Save(string data)
+    // Cloud Save Implementation
+    public class CloudSaver : MonoBehaviour, IDataSaver
     {
-        PlayGamesPlatform.Instance.SaveGame(data);
+        public void Save(string data)
+        {
+            PlayGamesPlatform.Instance.SaveGame(data);
+        }
     }
-}
 
-// Editor Mock Implementation
-#if UNITY_EDITOR
-public class MockSaver : IDataSaver
-{
-    public void Save(string data)
+    // Editor Mock Implementation
+    #if UNITY_EDITOR
+    public class MockSaver : IDataSaver
     {
-        Debug.Log($"Mock Save: {data}");
+        public void Save(string data)
+        {
+            Debug.Log($"Mock Save: {data}");
+        }
     }
-}
-#endif
-```
+    #endif
+    ```
 
 1. **Consumer Class**:
 
-```csharp
-public class GameProgress : MonoBehaviour
-{
-    [SerializeField] private IDataSaver _saver; // Inspector-assigned
-
-    public void SaveData()
+    ```csharp
+    public class GameProgress : MonoBehaviour
     {
-        _saver.Save(JsonUtility.ToJson(data));
+        [SerializeField] private IDataSaver _saver; // Inspector-assigned
+
+        public void SaveData()
+        {
+            _saver.Save(JsonUtility.ToJson(data));
+        }
     }
-}
-```
+    ```
 
 #### 🛠️ **Implementation Methods in Unity**
 
