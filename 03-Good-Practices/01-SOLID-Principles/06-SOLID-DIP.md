@@ -261,4 +261,4 @@ classDiagram
 
 ---
 
-[Next >>: SOLID Conclusion & Recap](07-SOLID-DIP.md) // [<< Back: Interface Segregation Principle (ISP)](05-SOLID-ISP.md)
+[<< Back: Interface Segregation Principle (ISP)](05-SOLID-ISP.md)
